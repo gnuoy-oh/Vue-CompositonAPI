@@ -1,7 +1,9 @@
 <template>
   <TodoHeader></TodoHeader>
+  <!-- @하위컴포넌트 이벤트 명 = "상위컴포넌트 메서드 명" -->
   <TodoInput @add="addTodoItem"></TodoInput>
-  <TodoList :todoItems="todoItems"></TodoList>
+  <!-- :프롭스 명 = "상위컴포넌트 데이터 명" -->
+  <TodoList :todoItems="todoItems" @remove="removeTodoItem"></TodoList>
 </template>
 
 <script>
@@ -35,7 +37,12 @@ export default {
       localStorage.setItem(todo, todo);
     }
 
-    return { todoItems, addTodoItem };
+    function removeTodoItem(item, index) {
+      todoItems.value.splice(index, 1);
+      localStorage.removeItem(item);
+    }
+
+    return { todoItems, addTodoItem, removeTodoItem };
   }
 };
 </script>
