@@ -1,7 +1,7 @@
 <template>
   <div>
     <input type="text" v-model="todoInput" />
-    <button>추가</button>
+    <button @click="addTodo">추가</button>
   </div>
 </template>
 
@@ -9,11 +9,22 @@
 import { ref } from "vue";
 
 export default {
-  setup() {
+  setup(props, context) {
     // data 정의
     const todoInput = ref(""); // 기본값 정의!
 
-    return { todoInput };
+    // method
+    function addTodo() {
+      const todo = todoInput.value;
+      context.emit("add", todo);
+      clearTodo();
+    }
+
+    const clearTodo = () => {
+      todoInput.value = "";
+    };
+
+    return { todoInput, addTodo };
   }
 };
 </script>
