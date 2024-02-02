@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import { ref } from "vue";
+import { ref, onBeforeMount, onMounted, onUnmounted } from "vue";
 import TodoHeader from "@/components/TodoHeader.vue";
 import TodoInput from "@/components/TodoInput.vue";
 import TodoList from "@/components/TodoList.vue";
@@ -31,7 +31,23 @@ export default {
       return result;
     }
 
-    todoItems.value = fetchTodos();
+    console.log("setup called");
+
+    // 라이프사이클 API 가 적용된 구간
+    // onBeforeMount: 화면에 컴포넌트가 불러와지기 전에 데이터를 불러온다.
+    onBeforeMount(() => {
+      console.log("onBeforeMount called");
+      todoItems.value = fetchTodos();
+    });
+
+    onMounted(() => {
+      console.log("onMounted called");
+    });
+
+    // 컴포넌트가 사라졌을 때 호출되는 라이프사이클
+    onUnmounted(() => {
+      console.log("onUnmounted called");
+    });
 
     function addTodoItem(todo) {
       todoItems.value.push(todo);
