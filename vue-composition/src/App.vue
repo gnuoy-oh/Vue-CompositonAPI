@@ -1,5 +1,5 @@
 <template>
-  <TodoHeader></TodoHeader>
+  <TodoHeader :appTitle="title"></TodoHeader>
   <!-- @하위컴포넌트 이벤트 명 = "상위컴포넌트 메서드 명" -->
   <TodoInput @add="addTodoItem"></TodoInput>
   <!-- :프롭스 명 = "상위컴포넌트 데이터 명" -->
@@ -17,6 +17,7 @@ export default {
   setup() {
     // data
     const todoItems = ref([]);
+    const title = ref("할일 앱");
 
     // methods
     // 기능: 하나의 온전한 함수-> 로컬스토리지의 아이템을 다 불러와서 하나의 배열로 만들어 주는 기능
@@ -42,7 +43,7 @@ export default {
       localStorage.removeItem(item);
     }
 
-    return { todoItems, addTodoItem, removeTodoItem };
+    return { title, todoItems, addTodoItem, removeTodoItem };
   }
 };
 </script>
